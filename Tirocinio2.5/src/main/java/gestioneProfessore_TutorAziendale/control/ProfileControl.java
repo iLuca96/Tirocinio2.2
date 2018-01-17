@@ -1,5 +1,8 @@
 package gestioneProfessore_TutorAziendale.control;
 
+import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendale;
+import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendaleModel;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -16,147 +19,147 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import gestioneProfessore_TutorAziendale.model.*;
 
 /**
- * 
- * La Classe ProfileControl è una classe contenente 4 metodi, essa svolge come compito principale di inserire/modificare un profilo personale di Professore/Tutor Aziendale.
- *
+ * La Classe ProfileControl è una classe contenente 4 metodi,
+ *  essa svolge come compito principale di inserire/modificare 
+ *  un profilo personale di Professore/Tutor Aziendale.
  */
 public class ProfileControl extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-   static ProfessoreTutorAziendaleModel Tutormodel;
-	
-	static {
-		
-		Tutormodel = new ProfessoreTutorAziendaleModel();
-		
-	}
-	String return_path = "/CreateProfile.jsp";
-	
-	public ProfileControl() {
-		super();
-	}
-	/**
-	 * Il metodo doPost, tenterà di inserire/modificare un profilo personale di Professore/Tutor Aziendale. 
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{	
-		String action= null;
-		if(ServletFileUpload.isMultipartContent(request))
-		{
-			try
-			{
-				List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-				
-				String name_folder = null,dir = null, image_profile = null,nome= null, cognome= null, company = null, indirizzo= null;
-				String telefono=null , fax= null, email=null, luogo = null, sitoweb = null , chisono = null;
-				 
-				int i = 0;
-				
-				ProfessoreTutorAziendale sessione_teacher = (ProfessoreTutorAziendale) request.getSession().getAttribute("teacher");
-				ProfessoreTutorAziendale sessione_tutor = (ProfessoreTutorAziendale) request.getSession().getAttribute("tutor");
-				
-				for(FileItem item : multiparts)
-				{
-					if(!item.isFormField())
-					{						
-						String name = new File(item.getName()).getName();					
-						
-						
-						if(sessione_teacher!=null && i==0)
-						{	
-							 if(sessione_teacher.getEmail().length()>0)
-							 {
-								 sessione_teacher.setUsername(sessione_teacher.getUsername().replaceAll("^\\s+", "")); //toglie lo spazio all'inizio
-								 sessione_teacher.setUsername(sessione_teacher.getUsername().replaceAll("\\s+$", "")); //toglie lo spazio alla fine
-								 name_folder = Folder(sessione_teacher.getUsername(),sessione_teacher.getUsername().length());
-								 dir = creaDir(name_folder);
-								 i=1;
-							 }
-						}
-						
-						if(sessione_tutor!=null && i==0)
-						{	
-							if(sessione_tutor.getEmail().length()>0)
-							{
-								sessione_tutor.setUsername(sessione_tutor.getUsername().replaceAll("^\\s+", "")); //toglie lo spazio all'inizio
-								sessione_tutor.setUsername(sessione_tutor.getUsername().replaceAll("\\s+$", "")); //toglie lo spazio alla fine
-								name_folder = Folder(sessione_tutor.getUsername(),sessione_tutor.getUsername().length());
-								dir = creaDir(name_folder);
-								i=1;
-							}
-						}
-						
-						if(image_profile==null)
-							image_profile = "/Tirocinio2.5/Users/TeacherTutor/" + name_folder + "/" + name;
-						else
-							image_profile = image_profile + name_folder + "/" + name;
-						
-						item.write(new File(dir + File.separator + name));
-					}
-					else
-					{							
-						if ("action".equals(item.getFieldName()))
-						{
-							action = item.getString();
-						}
-						 
-						if ("first_name".equals(item.getFieldName()))
-						{
-							nome = item.getString();
-						}
-						
-						if ("last_name".equals(item.getFieldName()))
-						{
-							cognome = item.getString();
-						}
-						
-						if ("company".equals(item.getFieldName()))
-						{
-							company = item.getString();
-						}
-						
-						if ("address".equals(item.getFieldName()))
-						{
-							indirizzo = item.getString();
-						}
-						
-						if ("phone".equals(item.getFieldName()))
-						{
-							telefono = item.getString();
-						}
-						
-						if ("fax".equals(item.getFieldName()))
-						{
-							fax = item.getString();
-						}
-						
-						if ("email".equals(item.getFieldName()))
-						{
-							email = item.getString();
-						}
-						
-						if ("city".equals(item.getFieldName()))
-						{
-							luogo = item.getString();
-						}
-						
-						if ("website".equals(item.getFieldName()))
-						{
-							sitoweb = item.getString();
-						}
+  private static final long serialVersionUID = 1L;
+  
+  static ProfessoreTutorAziendaleModel Tutormodel;
 
-						if ("whoiam".equals(item.getFieldName()))
-						{
-							chisono = item.getString();
-						}
-					}
-				}
-				
-				if (action.equalsIgnoreCase("createProfile") || action.equalsIgnoreCase("EditProfile")) {
-					
+  static {
+
+    Tutormodel = new ProfessoreTutorAziendaleModel();
+
+  }
+  
+  static String return_path = "/CreateProfile.jsp";
+
+  public ProfileControl() {
+    super();
+  }
+  
+  /**
+  * Il metodo doPost, tenterà di inserire/modificare un profilo 
+  * personale di Professore/Tutor Aziendale. 
+  */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    String action = null;
+    if (ServletFileUpload.isMultipartContent(request)) {
+      try {
+        List<FileItem> multiparts = new 
+            ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+
+        String nameFolder = null;
+        String dir = null;
+        String imageProfile = null;
+        String nome = null;
+        String cognome = null;
+        String company = null;
+        String    indirizzo = null;
+        String    telefono = null;
+        String    fax = null;
+        String email = null;
+        String luogo = null;
+        String sitoweb = null;
+        String chisono = null;
+
+        int i = 0;
+
+        ProfessoreTutorAziendale sessioneTeacher = (ProfessoreTutorAziendale)
+            request.getSession().getAttribute("teacher");
+        ProfessoreTutorAziendale sessioneTutor = (ProfessoreTutorAziendale) 
+            request.getSession().getAttribute("tutor");
+
+        for (FileItem item : multiparts) {
+          if (!item.isFormField()) {
+            String name = new File(item.getName()).getName();
+
+            if (sessioneTeacher != null && i == 0) {
+              if (sessioneTeacher.getEmail().length() > 0) {
+                sessioneTeacher.setUsername(sessioneTeacher.getUsername()
+                    .replaceAll("^\\s+", "")); //toglie lo spazio all'inizio
+                sessioneTeacher.setUsername(sessioneTeacher.getUsername()
+                    .replaceAll("\\s+$", "")); //toglie lo spazio alla fine
+                nameFolder = Folder(sessioneTeacher.getUsername(),
+                    sessioneTeacher.getUsername().length());
+                dir = creaDir(nameFolder);
+                i = 1;
+              }
+            }
+            if (sessioneTutor != null && i == 0) {
+              if (sessioneTutor.getEmail().length() > 0) {
+                sessioneTutor.setUsername(sessioneTutor.getUsername()
+                    .replaceAll("^\\s+", "")); //toglie lo spazio all'inizio
+                sessioneTutor.setUsername(sessioneTutor.getUsername()
+                    .replaceAll("\\s+$", "")); //toglie lo spazio alla fine
+                nameFolder = Folder(sessioneTutor.getUsername(),
+                    sessioneTutor.getUsername().length());
+                dir = creaDir(nameFolder);
+                i = 1;
+              }
+            }
+
+            if (imageProfile == null) {
+              imageProfile = "/Tirocinio2.5/Users/TeacherTutor/" + nameFolder + "/" + name;
+            } else {
+              imageProfile = imageProfile + nameFolder + "/" + name;
+            }
+
+            item.write(new File(dir + File.separator + name));
+          } else {
+            if ("action".equals(item.getFieldName())) {
+              action = item.getString();
+            }
+
+            if ("first_name".equals(item.getFieldName())) {
+              nome = item.getString();
+            }
+
+            if ("last_name".equals(item.getFieldName())) {
+              cognome = item.getString();
+            }
+
+            if ("company".equals(item.getFieldName())) {
+              company = item.getString();
+            }
+
+            if ("address".equals(item.getFieldName())) {
+              indirizzo = item.getString();
+            }
+
+            if ("phone".equals(item.getFieldName())) {
+              telefono = item.getString();
+            }
+
+            if ("fax".equals(item.getFieldName())) {
+              fax = item.getString();
+            }
+
+            if ("email".equals(item.getFieldName())) {
+              email = item.getString();
+            }
+
+            if ("city".equals(item.getFieldName())) {
+              luogo = item.getString();
+            }
+
+            if ("website".equals(item.getFieldName())) {
+              sitoweb = item.getString();
+            }
+
+            if ("whoiam".equals(item.getFieldName())) {
+              chisono = item.getString();
+            }
+          }
+        }
+
+        if (action.equalsIgnoreCase("createProfile") || action.equalsIgnoreCase("EditProfile")) {
+
 					if(ValidateEmail(email))
 					{
 						ProfessoreTutorAziendale bean = new ProfessoreTutorAziendale();
