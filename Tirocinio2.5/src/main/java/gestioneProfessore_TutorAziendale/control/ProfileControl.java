@@ -85,7 +85,7 @@ public class ProfileControl extends HttpServlet {
                     .replaceAll("^\\s+", "")); //toglie lo spazio all'inizio
                 sessioneTeacher.setUsername(sessioneTeacher.getUsername()
                     .replaceAll("\\s+$", "")); //toglie lo spazio alla fine
-                nameFolder = Folder(sessioneTeacher.getUsername(),
+                nameFolder = folder(sessioneTeacher.getUsername(),
                     sessioneTeacher.getUsername().length());
                 dir = creaDir(nameFolder);
                 i = 1;
@@ -97,7 +97,7 @@ public class ProfileControl extends HttpServlet {
                     .replaceAll("^\\s+", "")); //toglie lo spazio all'inizio
                 sessioneTutor.setUsername(sessioneTutor.getUsername()
                     .replaceAll("\\s+$", "")); //toglie lo spazio alla fine
-                nameFolder = Folder(sessioneTutor.getUsername(),
+                nameFolder = folder(sessioneTutor.getUsername(),
                     sessioneTutor.getUsername().length());
                 dir = creaDir(nameFolder);
                 i = 1;
@@ -160,127 +160,122 @@ public class ProfileControl extends HttpServlet {
 
         if (action.equalsIgnoreCase("createProfile") || action.equalsIgnoreCase("EditProfile")) {
 
-					if(ValidateEmail(email))
-					{
-						ProfessoreTutorAziendale bean = new ProfessoreTutorAziendale();
-						bean.setNome(nome);
-						bean.setCognome(cognome);
-						if(sessione_teacher!=null)
-						{
-							bean.setTipo("Professore");
-							bean.setUsername(sessione_teacher.getUsername());
-						}
-						if(sessione_tutor!=null)
-						{
-							bean.setTipo("Tutor Aziendale");
-							bean.setUsername(sessione_tutor.getUsername());
-						}
-						bean.setCompany(company);
-						bean.setIndirizzo(indirizzo);
-						bean.setTelefono(telefono);
-						bean.setFax(fax);
-						bean.setEmail(email);
-						bean.setCitta(luogo);
-						bean.setSitoweb(sitoweb);
-						bean.setChisono(chisono);
-						bean.setImmagine_profilo(image_profile);
-						Tutormodel.doModifyProfile(bean);
-						
-						if(action.equalsIgnoreCase("EditProfile"))
-						{
-							request.setAttribute("message_success_profile", "Profilo Modificato con successo.");							
-							return_path = "/EditProfile.jsp";
-						}
-						else
-							request.setAttribute("message_success_profile", "Profilo Creato con successo.");
-						
-						if(sessione_teacher!=null)
-							request.getSession().setAttribute("teacher", Tutormodel.doRetrieveByKey(sessione_teacher.getUsername()));
-						if(sessione_tutor!=null)
-							request.getSession().setAttribute("tutor", Tutormodel.doRetrieveByKey(sessione_tutor.getUsername()));
-					}
-					else
-					{
-						request.setAttribute("email_not_valid_profile", "Email inserita non valida.");
-						if(action.equalsIgnoreCase("EditProfile"))
-							return_path = "/EditProfile.jsp";
-					}
-					
-				}
-			}
-			catch(Exception ex)
-			{
-				request.setAttribute("message_danger_profile", "File upload failed due to : " + ex);
-				
-				if(action.equalsIgnoreCase("EditProfile"))
-					return_path = "/EditProfile.jsp";
-			}
-		}
-		else
-		{
-			request.setAttribute("message_danger", "Sorry this servlet only handles file upload request.");
-		}
-		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(return_path);
-		  
-		dispatcher.forward(request, response);
-	}
-	
-	/**
-	 * Il metodo è utile per pulire un nome dagli spazi e dagli * sostituiendoli con il _
-	 * @param name tipo String, variabile che in input ha un possibile nome di una cartella
-	 * @param n tipo int, variabile che contiene la lunghezza del nome di una cartella
-	 * @return name_folder tipo String, variabile che restituisce il nome di una cartella pulita da (spazi) e * con _
-	 */
-	public String Folder(String name,int n)
-	{		
-		String name_folder = "";
-		
-		for(int i=0;i<n;i++)
-		{						
-			String comparison = name.substring(i, i+1);
-			
-			if((comparison.equalsIgnoreCase(" "))||(comparison.equalsIgnoreCase("*")))
-			{	
-				name_folder = name_folder + "_";
-			}
-			else
-			{
-				name_folder = name_folder + name.substring(i, i+1);
-				
-			}
-		}
-		
-	 return name_folder;
-	}
-	/**
-	 * Il metodo aggiunge alla variabile dir il nome della cartella che gli viene passato.
-	 * @param name_folder tipo String, variabile che riceve il nome della cartella  
-	 * @return Dir tipo String, variabile che contiene il path dove verrà memorizzata una cartella
-	 * 
-	 */
-	private static String creaDir(String name_folder)
-	  {
-		//String Dir = "C:/Users/ciro9/eclipse-workspace/Tirocinio2.5/WebContent/Users/TeacherTutor/" + name_folder;
-		String Dir = "C:/apache-tomcat-8.5.11/webapps/Tirocinio2.5/Users/TeacherTutor/" + name_folder;
-		
-	    new File(Dir).mkdir();
-	    return Dir;
-	  }
-	
-	/**
-	 * Il metodo confronta l'email passata con una espressione regolare, per verificare se la variabile passata è una email valida
-	 * @param email tipo Boolean, Variabile che viene cofrontata con le espressioni regolari per verificare se è una email valida
- 	 * @return true/false valore boolean che se è false allora il parametro passato non è una email valida, true altrimenti.
-	 */
-	public boolean ValidateEmail(String email)
-	{
-		Pattern pattern = Pattern.compile("[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
-		Matcher matcher = pattern.matcher(email);
-		 
-		if(matcher.matches())
-			return true;
-		else
-			return false;	
-	}
+          if (validateEmail(email)) {
+            ProfessoreTutorAziendale bean = new ProfessoreTutorAziendale();
+            bean.setNome(nome);
+            bean.setCognome(cognome);
+            if (sessioneTeacher != null) {
+              bean.setTipo("Professore");
+              bean.setUsername(sessioneTeacher.getUsername());
+            }
+            
+            if (sessioneTutor != null) {
+              bean.setTipo("Tutor Aziendale");
+              bean.setUsername(sessioneTutor.getUsername());
+            }
+            bean.setCompany(company);
+            bean.setIndirizzo(indirizzo);
+            bean.setTelefono(telefono);
+            bean.setFax(fax);
+            bean.setEmail(email);
+            bean.setCitta(luogo);
+            bean.setSitoweb(sitoweb);
+            bean.setChisono(chisono);
+            bean.setImmagine_profilo(imageProfile);
+            Tutormodel.doModifyProfile(bean);
+
+            if (action.equalsIgnoreCase("EditProfile")) {
+              request.setAttribute("message_success_profile", "Profilo Modificato con successo.");
+              return_path = "/EditProfile.jsp";
+            } else {
+              request.setAttribute("message_success_profile", "Profilo Creato con successo.");
+            }
+
+            if (sessioneTeacher != null) {
+              request.getSession().setAttribute("teacher", Tutormodel
+                  .doRetrieveByKey(sessioneTeacher.getUsername()));
+            }
+            if (sessioneTutor != null) {
+              request.getSession().setAttribute("tutor", Tutormodel
+                  .doRetrieveByKey(sessioneTutor.getUsername()));
+            }
+          } else {
+            request.setAttribute("email_not_valid_profile", "Email inserita non valida.");
+            if (action.equalsIgnoreCase("EditProfile")) {
+              return_path = "/EditProfile.jsp";
+            }
+          }
+
+        }
+      } catch (Exception ex) {
+        request.setAttribute("message_danger_profile", "File upload failed due to : " + ex);
+
+        if (action.equalsIgnoreCase("EditProfile")) {
+          return_path = "/EditProfile.jsp";
+        }
+      }
+    } else {
+      request.setAttribute("message_danger", 
+          "Sorry this servlet only handles file upload request.");
+    }
+
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(return_path);
+
+    dispatcher.forward(request, response);
+  }
+  
+  /**
+   * Il metodo è utile per pulire un nome dagli spazi e dagli * sostituiendoli con il _.
+   * @param name tipo String, variabile che in input ha un possibile nome di una cartella
+   * @param n tipo int, variabile che contiene la lunghezza del nome di una cartella
+   * @return name_folder tipo String, variabile che restituisce il nome di una cartella 
+   *     pulita da (spazi) e * con _
+   */
+  public String folder(String name,int n) {
+    String nameFolder = "";
+
+    for (int i = 0; i < n; i++) {
+      String comparison = name.substring(i, i + 1);
+
+      if ((comparison.equalsIgnoreCase(" ")) || (comparison.equalsIgnoreCase("*"))) {
+        nameFolder = nameFolder + "_";
+      } else {
+        nameFolder = nameFolder + name.substring(i, i + 1);
+      }
+    }
+
+    return nameFolder;
+  }
+  /**
+   * Il metodo aggiunge alla variabile dir il nome della cartella che gli viene passato.
+   * @param name_folder tipo String, variabile che riceve il nome della cartella  
+   * @return Dir tipo String, variabile che contiene il path dove verrà memorizzata una cartella
+   */
+  
+  private static String creaDir(String nameFolder) {
+  //String Dir = "C:/Users/ciro9/eclipse-workspace/Tirocinio2.5/WebContent/Users/TeacherTutor/" + name_folder;
+    String Dir = "C:/apache-tomcat-8.5.11/webapps/Tirocinio2.5/Users/TeacherTutor/" + nameFolder;
+
+    new File(Dir).mkdir();
+    return Dir;
+  }
+  
+  /**
+  * Il metodo confronta l'email passata con una espressione regolare,
+  *  per verificare se la variabile passata è una email valida.
+  * @param email tipo Boolean, Variabile che viene cofrontata 
+  *     con le espressioni regolari per verificare se è una email valida
+  * @return true/false valore boolean che se è false allora il 
+  *     parametro passato non è una email valida, true altrimenti.
+ */
+  public boolean validateEmail(String email) {
+    Pattern pattern = Pattern.compile("[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
+    Matcher matcher = pattern.matcher(email);
+
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

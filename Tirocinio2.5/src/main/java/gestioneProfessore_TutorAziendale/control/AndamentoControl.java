@@ -87,52 +87,49 @@ public class AndamentoControl extends HttpServlet {
               return_path = "/TrendTraining.jsp";
             }
           }
-        }
-        else
-          if (action.equalsIgnoreCase("modify_time_work")) {
-            sessione_teacher = (ProfessoreTutorAziendale)
-                request.getSession().getAttribute("teacher");
-            sessione_tutor = (ProfessoreTutorAziendale) 
-                request.getSession().getAttribute("tutor");
+        } else if (action.equalsIgnoreCase("modify_time_work")) {
+          sessione_teacher = (ProfessoreTutorAziendale)
+              request.getSession().getAttribute("teacher");
+          sessione_tutor = (ProfessoreTutorAziendale) 
+              request.getSession().getAttribute("tutor");
 
-            boolean control = false;
+          boolean control = false;
 
-            if (sessione_teacher != null) {
-              if (sessione_teacher.getEmail().length() > 0) {
-                control = true;
-              }
-            }
-
-            if (sessione_tutor != null) {
-              if (sessione_tutor.getEmail().length() > 0){
-                control = true;
-              }
-            }
-
-            if (control) {
-              String id = request.getParameter("id");
-              int idInt = Integer.parseInt(id);
-              String data = request.getParameter("data");
-              String oraInizio = request.getParameter("ora_inizio");
-              String oraFine = request.getParameter("ora_fine");
-              
-              if (id != null) {
-                andamentoModel = new AndamentoModel();
-
-                Andamento bean = new Andamento();
-                bean.setId(idInt);
-                bean.setDataT(data);
-                bean.setOra_inizio(oraInizio);
-                bean.setOra_fine(oraFine);
-                bean.setTirocinioID(idInt);
-                andamentoModel.doModify(bean);
-
-                request.setAttribute("message_success_training", "Ore di lavoro Modificate.");
-
-                return_path = "/ModifyTimeTrend.jsp";
-              }
+          if (sessione_teacher != null) {
+            if (sessione_teacher.getEmail().length() > 0) {
+              control = true;
             }
           }
+
+          if (sessione_tutor != null) {
+            if (sessione_tutor.getEmail().length() > 0) {
+              control = true;
+            }
+          }
+
+          if (control) {
+            String id = request.getParameter("id");
+            int idInt = Integer.parseInt(id);
+            String data = request.getParameter("data");
+            String oraInizio = request.getParameter("ora_inizio");
+            String oraFine = request.getParameter("ora_fine");
+             
+            if (id != null) {
+              andamentoModel = new AndamentoModel();
+              Andamento bean = new Andamento();
+              bean.setId(idInt);
+              bean.setDataT(data);
+              bean.setOra_inizio(oraInizio);
+              bean.setOra_fine(oraFine);
+              bean.setTirocinioID(idInt);
+              andamentoModel.doModify(bean);
+
+              request.setAttribute("message_success_training", "Ore di lavoro Modificate.");
+
+              return_path = "/ModifyTimeTrend.jsp";
+            }
+          }
+        }
       }
     } catch (SQLException e) {
       System.out.println("Error:" + e.getMessage());
