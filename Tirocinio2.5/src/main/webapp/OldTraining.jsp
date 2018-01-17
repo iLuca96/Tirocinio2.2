@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>
-	Tiroini Vecchi
+	Tiroini Precedenti
 </title>
 
 <%@ include file="fragments/head.html" %>
@@ -20,7 +20,7 @@
 		 { 
 		  %>  
 			<div class="container">
-			<h2>Inserimento Tirocini Vecchi</h2>
+			<h2>Inserimento Tirocini Precedenti</h2>
 			<div class="col-sm-3"> 
 			</div>
 			<div class="col-sm-5"> 
