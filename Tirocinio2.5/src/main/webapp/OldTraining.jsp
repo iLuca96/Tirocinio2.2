@@ -13,8 +13,6 @@
 <body>
 
 <%  
-	
-	
 	if(sessione_student!=null)		
 	{	 if(sessione_student.getEmail().length()>0)
 		 { 
