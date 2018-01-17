@@ -1,6 +1,6 @@
 package gestioneSegreteria.model;
 
-import gestioneStorage.ConnectionDB;
+import gestioneStorage.ConnectionDb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +19,8 @@ import javax.sql.DataSource;
  */
 public class SegreteriaModel {
 
-  static ConnectionDB database = new ConnectionDB();
-  private static DataSource ds = database.getDS();
+  static ConnectionDb database = new ConnectionDb();
+  private static DataSource ds = database.getDs();
 
   private static final String TABLE_NAME = "segreteria";
 
