@@ -4,7 +4,7 @@ import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale;
 import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendaleModel;
 import gestionestudente.model.Studente;
 import gestionestudente.model.StudenteModel;
-import gestioneutente.model.md5;
+import gestioneutente.model.Md5;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -75,7 +75,7 @@ public class SignupControl extends HttpServlet {
 
           String psw = request.getParameter("psw");
           
-          psw = md5.hashCode(psw, "MD5"); 
+          psw = Md5.hashCode(psw, "MD5"); 
 
           HttpSession session = request.getSession();
 

@@ -6,7 +6,7 @@ import gestionesegreteria.model.Segreteria;
 import gestionesegreteria.model.SegreteriaModel;
 import gestionestudente.model.Studente;
 import gestionestudente.model.StudenteModel;
-import gestioneutente.model.md5;
+import gestioneutente.model.Md5;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -54,7 +54,7 @@ public class LoginControl extends HttpServlet {
         if (action.equalsIgnoreCase("login")) {
           String psw = request.getParameter("psw");
 
-          psw = md5.hashCode(psw, "MD5");
+          psw = Md5.hashCode(psw, "MD5");
 
           request.removeAttribute("student");
           request.removeAttribute("teacher");

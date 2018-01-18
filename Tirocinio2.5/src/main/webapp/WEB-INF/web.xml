@@ -17,7 +17,7 @@
   </resource-ref>
   <servlet>
     <servlet-name>SignupControl</servlet-name>
-    <servlet-class>gestioneUtente.control.SignupControl</servlet-class>
+    <servlet-class>gestioneutente.control.SignupControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SignupControl</servlet-name>
@@ -25,7 +25,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>LoginControl</servlet-name>
-    <servlet-class>gestioneUtente.control.LoginControl</servlet-class>
+    <servlet-class>gestioneutente.control.LoginControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginControl</servlet-name>
@@ -33,7 +33,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>EditDataControl</servlet-name>
-    <servlet-class>gestioneUtente.control.EditDataControl</servlet-class>
+    <servlet-class>gestioneutente.control.EditDataControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>EditDataControl</servlet-name>
@@ -41,7 +41,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ModifyLinkedinControl</servlet-name>
-    <servlet-class>gestioneStudente.control.ModifyLinkedinControl</servlet-class>
+    <servlet-class>gestionestudente.control.ModifyLinkedinControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ModifyLinkedinControl</servlet-name>
@@ -49,7 +49,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>UploadFile</servlet-name>
-    <servlet-class>gestioneStudente.control.UploadFile</servlet-class>
+    <servlet-class>gestionestudente.control.UploadFile</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UploadFile</servlet-name>
@@ -57,7 +57,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>InternalExternal</servlet-name>
-    <servlet-class>gestioneStudente.control.InternalExternal</servlet-class>
+    <servlet-class>gestionestudente.control.InternalExternal</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>InternalExternal</servlet-name>
@@ -65,7 +65,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>ProfileControl</servlet-name>
-    <servlet-class>gestioneProfessore_TutorAziendale.control.ProfileControl</servlet-class>
+    <servlet-class>gestioneprofessoretutoraziendale.control.ProfileControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProfileControl</servlet-name>
@@ -73,7 +73,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>TirocinioControl</servlet-name>
-    <servlet-class>gestioneUtente.control.TirocinioControl</servlet-class>
+    <servlet-class>gestioneutente.control.TirocinioControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>TirocinioControl</servlet-name>
@@ -81,7 +81,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>AndamentoControl</servlet-name>
-    <servlet-class>gestioneProfessore_TutorAziendale.control.AndamentoControl</servlet-class>
+    <servlet-class>gestioneprofessoretutoraziendale.control.AndamentoControl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AndamentoControl</servlet-name>

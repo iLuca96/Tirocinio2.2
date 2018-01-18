@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*,gestioneStudente.model.Studente,gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendale,gestioneSegreteria.model.Segreteria"%>
+	pageEncoding="UTF-8" import="java.util.*,gestionestudente.model.Studente,gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale,gestionesegreteria.model.Segreteria"%>
 
 <!DOCTYPE html>
 <html>

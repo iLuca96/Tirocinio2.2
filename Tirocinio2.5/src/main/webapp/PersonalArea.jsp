@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*,gestioneStudente.model.Studente"%>
+	pageEncoding="UTF-8" import="java.util.*,gestionestudente.model.Studente"%>
 
 
 
@@ -124,7 +124,7 @@
 			  </script>
 			  <br><br>
 			  
-			  <button onclick="MyTraining()" class="btn btn-success">I Miei Tirocini</button> <button onclick="OldTraining()" class="btn btn-warning">Tirocini Vecchi</button>
+			  <button onclick="MyTraining()" class="btn btn-success">I Miei Tirocini</button> <button onclick="OldTraining()" class="btn btn-warning">Tirocini Precedenti</button>
 		       <script>
 					function MyTraining() {
 						window.location.href = "MyTraining.jsp";

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendale,gestioneUtente.model.TirocinioModel,gestioneUtente.model.Tirocinio"%>
+    pageEncoding="UTF-8" import="java.util.*,gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale,gestioneutente.model.TirocinioModel,gestioneutente.model.Tirocinio"%>
     
 <html>
 <head>
@@ -25,7 +25,7 @@
 	if(sessione_teacher!=null)		
 	{	 if(sessione_teacher.getEmail().length()>0)
 		 { 
-			request.setAttribute("trainings", TirocinioModel.RequestTraining("",sessione_teacher.getUsername()));
+			request.setAttribute("trainings", TirocinioModel.requestTraining("",sessione_teacher.getUsername()));
 		
 			Collection<?> trainings = (Collection<?>) request.getAttribute("trainings");
 		  %>  
@@ -124,7 +124,7 @@
 	   if(sessione_tutor!=null)		
 		{	 if(sessione_tutor.getEmail().length()>0)
 			 {
-				request.setAttribute("trainings", TirocinioModel.RequestTraining("",sessione_tutor.getUsername()));
+				request.setAttribute("trainings", TirocinioModel.requestTraining("",sessione_tutor.getUsername()));
 				
 				Collection<?> trainings = (Collection<?>) request.getAttribute("trainings");
 			  %>  

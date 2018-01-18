@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,gestioneStudente.model.Studente,gestioneUtente.model.TirocinioModel,gestioneUtente.model.Tirocinio"%>
+    pageEncoding="UTF-8" import="java.util.*,gestionestudente.model.Studente,gestioneutente.model.TirocinioModel,gestioneutente.model.Tirocinio"%>
     
 <html>
 <head>
@@ -23,7 +23,7 @@
 	if(sessione_student!=null)		
 	{	 if(sessione_student.getEmail().length()>0)
 		 { 
-			request.setAttribute("trainings", TirocinioModel.MyTraining("",sessione_student.getMatricola()));
+			request.setAttribute("trainings", TirocinioModel.myTraining("",sessione_student.getMatricola()));
 		
 			Collection<?> trainings = (Collection<?>) request.getAttribute("trainings");
 		  %>  

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,gestioneStudente.model.Studente"%>
+    pageEncoding="UTF-8" import="java.util.*,gestionestudente.model.Studente"%>
     
 <html>
 <head>
@@ -22,7 +22,7 @@
 			<div class="col-sm-3"> 
 			</div>
 			<div class="col-sm-5"> 
-				<form action="oldTraining" method="post"> 
+				<form action="oldTraining" method="post" enctype="multipart/form-data"> 
 				  	<input type="hidden" name="action" value="insert_old_training">
 					  
 				    <div class="form-group"> 
@@ -38,12 +38,8 @@
 				      <input type="text" maxlength="10" class="form-control" required placeholder="Inserisci durata del lavoro (ore)" name="job">
 				    </div>
 				    <div class="form-group">
-				      <label for="start_date">Data Inizio:</label>
-				      <input type="text" maxlength="10" class="form-control" required placeholder="gg/mm/aaaa" name="start_date">
-				    </div>
-				    <div class="form-group">
-				      <label for="end_date">Data Fine:</label>
-				      <input type="text" maxlength="10" class="form-control" required placeholder="gg/mm/aaaa" name="end_date">
+				      <label for="document">Carica Documento:</label>
+				      <input type="file" required accept="application/pdf" name="file" style="margin-bottom: 0.5em;">
 				    </div>
 				    <div class="form-group">
 				      <label for="mansioni">Compiti e mansioni svolte:</label>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,gestioneStudente.model.Studente,gestioneUtente.model.TirocinioModel,gestioneUtente.model.Tirocinio,gestioneUtente.model.AndamentoModel,gestioneUtente.model.Andamento,gestioneUtente.model.Time"%>
+    pageEncoding="UTF-8" import="java.util.*,gestionestudente.model.Studente,gestioneutente.model.TirocinioModel,gestioneutente.model.Tirocinio,gestioneutente.model.AndamentoModel,gestioneutente.model.Andamento,gestioneutente.model.Time"%>
     
 <html>
 <head>
@@ -29,7 +29,7 @@
 	if(sessione_student!=null)		
 	{	 if(sessione_student.getEmail().length()>0)
 		 { 
-			request.setAttribute("trend", andamentoModel.RequestTrend("",id_int));
+			request.setAttribute("trend", andamentoModel.requestTrend("",id_int));
 		
 			Collection<?> trend = (Collection<?>) request.getAttribute("trend");
 		  %>  
@@ -106,8 +106,8 @@
                                 end.set(year,month,day,time_hour_end,time_minute_end);
                              
 								Time time = new Time();
-								tothour = tothour + time.CalcHour(start.getTimeInMillis(), end.getTimeInMillis());
-								totminute = totminute + time.CalcMinute(start.getTimeInMillis(), end.getTimeInMillis(),time.CalcHour(start.getTimeInMillis(), end.getTimeInMillis()));
+								tothour = tothour + time.calcHour(start.getTimeInMillis(), end.getTimeInMillis());
+								totminute = totminute + time.calcMinute(start.getTimeInMillis(), end.getTimeInMillis(),time.calcHour(start.getTimeInMillis(), end.getTimeInMillis()));
                                 %>
                                     </thead>
                                     <tbody>
@@ -115,7 +115,7 @@
                                             <td><%=andamento.getDataT()%></td>
                                             <td><%=andamento.getOra_inizio().subSequence(0, 5)%></td>
                                             <td><%=andamento.getOra_fine().subSequence(0, 5)%></td>
-                                            <td><%=time.CalcTime(start.getTimeInMillis(),end.getTimeInMillis())%></td>
+                                            <td><%=time.calcTime(start.getTimeInMillis(),end.getTimeInMillis())%></td>
                                         </tr>
                              <%
 								}%>

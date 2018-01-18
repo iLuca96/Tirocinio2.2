@@ -79,7 +79,7 @@ public class AndamentoControl extends HttpServlet {
               bean.setDataT(data);
               bean.setOra_inizio(oraInizio);
               bean.setOra_fine(oraFine);
-              bean.setTirocinioID(idInt);
+              bean.setTirocinioId(idInt);
               andamentoModel.doSave(bean);
 
               request.setAttribute("message_success_training", "Ore di lavoro Aggiunte.");
@@ -121,7 +121,7 @@ public class AndamentoControl extends HttpServlet {
               bean.setDataT(data);
               bean.setOra_inizio(oraInizio);
               bean.setOra_fine(oraFine);
-              bean.setTirocinioID(idInt);
+              bean.setTirocinioId(idInt);
               andamentoModel.doModify(bean);
 
               request.setAttribute("message_success_training", "Ore di lavoro Modificate.");

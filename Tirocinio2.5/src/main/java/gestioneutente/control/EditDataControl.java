@@ -1,11 +1,10 @@
 package gestioneutente.control;
 
-import gestionestudente.model.Studente;
-import gestionestudente.model.StudenteModel;
 import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale;
 import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendaleModel;
-import gestioneutente.model.md5;
-
+import gestionestudente.model.Studente;
+import gestionestudente.model.StudenteModel;
+import gestioneutente.model.Md5;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -76,7 +75,7 @@ public class EditDataControl extends HttpServlet {
 
           String psw = request.getParameter("psw");
 
-          psw = md5.hashCode(psw, "MD5");
+          psw = Md5.hashCode(psw, "MD5");
 
           HttpSession session = request.getSession();
 
