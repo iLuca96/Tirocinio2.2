@@ -1,6 +1,6 @@
-package gestioneSegreteria.model;
+package gestionesegreteria.model;
 
-import gestioneStorage.ConnectionDb;
+import gestionestorage.ConnectionDb;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

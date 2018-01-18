@@ -1,8 +1,8 @@
-package gestioneProfessore_TutorAziendale.control;
+package gestioneprofessoretutoraziendale.control;
 
-import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendale;
-import gestioneUtente.model.Andamento;
-import gestioneUtente.model.AndamentoModel;
+import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale;
+import gestioneutente.model.Andamento;
+import gestioneutente.model.AndamentoModel;
 
 import java.io.IOException;
 import java.sql.SQLException;

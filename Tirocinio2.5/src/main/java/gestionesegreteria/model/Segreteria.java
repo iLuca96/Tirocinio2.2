@@ -1,4 +1,4 @@
-package gestioneSegreteria.model;
+package gestionesegreteria.model;
 
 /**
  * Segreteria è una classe con 6 metodi set e get, 

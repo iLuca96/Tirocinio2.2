@@ -1,4 +1,4 @@
-package gestioneStorage;
+package gestionestorage;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

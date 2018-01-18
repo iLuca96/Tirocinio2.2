@@ -1,4 +1,4 @@
-package gestioneProfessore_TutorAziendale.model;
+package gestioneprofessoretutoraziendale.model;
 
 /**
  * ProfessoreTutorAziendale è una classe con 28 metodi set e get,

@@ -1,10 +1,10 @@
-package gestioneUtente.control;
+package gestioneutente.control;
 
-import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendale;
-import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendaleModel;
-import gestioneStudente.model.Studente;
-import gestioneStudente.model.StudenteModel;
-import gestioneUtente.model.md5;
+import gestionestudente.model.Studente;
+import gestionestudente.model.StudenteModel;
+import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale;
+import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendaleModel;
+import gestioneutente.model.md5;
 
 import java.io.IOException;
 import java.sql.SQLException;

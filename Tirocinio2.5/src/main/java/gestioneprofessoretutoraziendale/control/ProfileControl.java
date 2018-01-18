@@ -1,7 +1,7 @@
-package gestioneProfessore_TutorAziendale.control;
+package gestioneprofessoretutoraziendale.control;
 
-import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendale;
-import gestioneProfessore_TutorAziendale.model.ProfessoreTutorAziendaleModel;
+import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendale;
+import gestioneprofessoretutoraziendale.model.ProfessoreTutorAziendaleModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -253,11 +253,12 @@ public class ProfileControl extends HttpServlet {
    */
   
   private static String creaDir(String nameFolder) {
-  //String Dir = "C:/Users/ciro9/eclipse-workspace/Tirocinio2.5/WebContent/Users/TeacherTutor/" + name_folder;
-    String Dir = "C:/apache-tomcat-8.5.11/webapps/Tirocinio2.5/Users/TeacherTutor/" + nameFolder;
+    //String Dir = "C:/Users/ciro9/eclipse-workspace/
+    //Tirocinio2.5/WebContent/Users/TeacherTutor/" + name_folder;
+    String dir = "C:/apache-tomcat-8.5.11/webapps/Tirocinio2.5/Users/TeacherTutor/" + nameFolder;
 
-    new File(Dir).mkdir();
-    return Dir;
+    new File(dir).mkdir();
+    return dir;
   }
   
   /**
