@@ -236,6 +236,70 @@ public class TirocinioControl extends HttpServlet {
               returnPath = "/segreteria/CompletedTraining.jsp";
             }
           }
+        } else if (action.equalsIgnoreCase("convalidate_old_training_student")) {
+          Segreteria sessioneSegreteria = 
+                (Segreteria) request.getSession().getAttribute("segreteria");
+
+          boolean control = false;
+
+          if (sessioneSegreteria != null) {
+            if (sessioneSegreteria.getEmail().length() > 0) {
+              control = true;
+            }
+          }
+
+          if (control) {
+            String id = request.getParameter("id");
+            int idInt = Integer.parseInt(id);
+
+            if (id != null) {
+              tirocinioModel = new TirocinioModel();
+
+              Tirocinio tirocinio = (Tirocinio) tirocinioModel.doRetrieveOldByKey(idInt);
+
+              if (tirocinio.getStato().equalsIgnoreCase("In Attesa")) {
+                tirocinioModel.doModifyOld("Convalidato", idInt);
+                request.setAttribute("message_success_training", "Tirocinio Convalidato.");
+              } else {
+                request.setAttribute("message_fault_training",
+                    "Per convalidare " + "il Tirocinio lo stato deve essere in \"In Attesa\".");
+              }
+
+              returnPath = "/segreteria/OldTraining.jsp";
+            }
+          }
+        } else if (action.equalsIgnoreCase("reject_old_training_student")) {
+          Segreteria sessioneSegreteria = 
+                    (Segreteria) request.getSession().getAttribute("segreteria");
+
+          boolean control = false;
+
+          if (sessioneSegreteria != null) {
+            if (sessioneSegreteria.getEmail().length() > 0) {
+              control = true;
+            }
+          }
+
+          if (control) {
+            String id = request.getParameter("id");
+            int idInt = Integer.parseInt(id);
+
+            if (id != null) {
+              tirocinioModel = new TirocinioModel();
+
+              Tirocinio tirocinio = (Tirocinio) tirocinioModel.doRetrieveOldByKey(idInt);
+
+              if (tirocinio.getStato().equalsIgnoreCase("In Attesa")) {
+                tirocinioModel.doModifyOld("Rifiutato", idInt);
+                request.setAttribute("message_success_training", "Tirocinio Rifiutato.");
+              } else {
+                request.setAttribute("message_fault_training",
+                     "Per rifiutare " + "il Tirocinio lo stato deve essere in \"In Attesa\".");
+              }
+
+              returnPath = "/segreteria/OldTraining.jsp";
+            }
+          }
         }
       }
     } catch (SQLException e) {

@@ -77,3 +77,5 @@ create table  if not exists tirocini_precedenti (
   foreign key (segreteriaUsername) references segreteria(Username)
 								on delete cascade
 );
+
+INSERT INTO segreteria (username,email,psw) values('segreteria','segreteria@segreteria.unisa.it','189bbbb00c5f1fb7fba9ad9285f193d1');

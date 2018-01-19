@@ -50,9 +50,15 @@ if(sessione_segreteria!=null)
 			  </button>
 			  <%
 				  if(request.getRequestURI().length()>25 && request.getRequestURI().substring(0, 25).equalsIgnoreCase("/Tirocinio2.5/segreteria/"))
-				  {%>
+				  { if(request.getAttribute("message_success_training")!=null || request.getAttribute("message_fault_training")!=null)
+				    {%>
+					  <a class="navbar-brand" href="index.jsp"> <img src="images/logo.png" style="width:100%;width:15em;height:5em;" alt=""> </a>
+				  <%}
+					else
+					{%>
 					  <a class="navbar-brand" href="../index.jsp"> <img src="../images/logo.png" style="width:100%;width:15em;height:5em;" alt=""> </a>
 				  <%}
+				  }
 				  else
 				  {%>
 					  <a class="navbar-brand" href="index.jsp"> <img src="images/logo.png" style="width:100%;width:15em;height:5em;" alt=""> </a>	
@@ -69,11 +75,17 @@ if(sessione_segreteria!=null)
 			  <ul class="nav navbar-nav navbar-right">
 				
 				 <%
-				  if(request.getRequestURI().length()>25 && request.getRequestURI().substring(0, 25).equalsIgnoreCase("/Tirocinio2.5/segreteria/"))
-				  {%>
-					  <li> <a href="../index.jsp"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+				 if(request.getRequestURI().length()>25 && request.getRequestURI().substring(0, 25).equalsIgnoreCase("/Tirocinio2.5/segreteria/"))
+				  { if(request.getAttribute("message_success_training")!=null || request.getAttribute("message_fault_training")!=null)
+				    {%>
+					  <li> <a href="index.jsp"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
 				  <%}
-				  else
+					else
+					{%>
+					  <li> <a href="../index.jsp"> <span class="glyphicon glyphicon-home"></span> Home</a></li>				  
+				  <%}
+				  }
+				 else
 				  {%>
 					  <li> <a href="index.jsp"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
 				  <%}
@@ -109,10 +121,16 @@ if(sessione_segreteria!=null)
     				if(sessione_segreteria!=null)		
    					 if(sessione_segreteria.getEmail().length()>0)
 		    			    {
-								if(request.getRequestURI().length()>25 && request.getRequestURI().substring(0, 25).equalsIgnoreCase("/Tirocinio2.5/segreteria/"))
-								{%>
-									<li><a href="../PersonalAreaSegretary.jsp"> <span class="glyphicon glyphicon-user"></span> Area Utente (<%=sessione_segreteria.getUsername()%>)</a></li>
-							  <%}
+		   					    if(request.getRequestURI().length()>25 && request.getRequestURI().substring(0, 25).equalsIgnoreCase("/Tirocinio2.5/segreteria/"))
+		   					    { if(request.getAttribute("message_success_training")!=null || request.getAttribute("message_fault_training")!=null)
+		   					      {%>
+		   						    <li><a href="PersonalAreaSegretary.jsp"> <span class="glyphicon glyphicon-user"></span> Area Utente (<%=sessione_segreteria.getUsername()%>)</a></li>
+		   					    <%}
+		   						  else
+		   						  {%>
+		   						    <li><a href="../PersonalAreaSegretary.jsp"> <span class="glyphicon glyphicon-user"></span> Area Utente (<%=sessione_segreteria.getUsername()%>)</a></li>
+		   					    <%}
+		   					    }
 								else
 								{%>
 								  <li><a href="PersonalAreaSegretary.jsp"> <span class="glyphicon glyphicon-user"></span> Area Utente (<%=sessione_segreteria.getUsername()%>)</a></li>
@@ -123,9 +141,15 @@ if(sessione_segreteria!=null)
 				if(controllo)
 			   	  { 
 					if(request.getRequestURI().length()>25 && request.getRequestURI().substring(0, 25).equalsIgnoreCase("/Tirocinio2.5/segreteria/"))
-					{%>
-						  <li><a href="../Logout.jsp"> <span class="glyphicon glyphicon-log-out"></span> Esci</a></li>
-				  <%}
+					{ if(request.getAttribute("message_success_training")!=null || request.getAttribute("message_fault_training")!=null)
+					  {%>
+						<li><a href="Logout.jsp"> <span class="glyphicon glyphicon-log-out"></span> Esci</a></li>
+					<%}
+					  else
+					  {%>
+						<li><a href="../Logout.jsp"> <span class="glyphicon glyphicon-log-out"></span> Esci</a></li>
+					<%}
+					}
 					else
 					{%>
 					  <li><a href="Logout.jsp"> <span class="glyphicon glyphicon-log-out"></span> Esci</a></li>

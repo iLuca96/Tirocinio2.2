@@ -92,6 +92,7 @@ public class InternalExternal extends HttpServlet {
               bean.setTutor_username(sessioneStudent.getUsername());
               bean.setTipo("Esterno");
               bean.setSegreteria_username("segreteria");
+              bean.setTutor_username(sessioneTutor.getUsername());
               tirocinioModel.doSave(bean);
 
               request.setAttribute("session_training", "Il tirocinio Esterno con "

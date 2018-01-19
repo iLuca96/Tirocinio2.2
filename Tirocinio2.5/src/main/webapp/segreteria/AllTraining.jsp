@@ -1,34 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,gestionestudente.model.Studente,gestioneutente.model.TirocinioModel,gestioneutente.model.Tirocinio"%>
+    pageEncoding="UTF-8" import="java.util.*,gestioneutente.model.Tirocinio,gestioneutente.model.TirocinioModel,gestionesegreteria.model.Segreteria"%>
     
 <html>
 <head>
 <title>
-	I Miei Tirocini
+	Tutti i tirocini (Esterni/Interni/Precedenti)
 </title>
 
-<%@ include file="fragments/head.html" %>
-<%@ include file="fragments/nav.jsp" %>
+<%@ include file="../fragments/head.html" %>
+<%@ include file="../fragments/nav.jsp" %>
 </head>
 <body>
 
 <%  
 	
-	TirocinioModel TirocinioModel;
+	TirocinioModel tirocinioModel;
 	
-	TirocinioModel = new TirocinioModel();
+    tirocinioModel = new TirocinioModel();
 	
 	//Tirocinio tirocinio = (Tirocinio) request.getAttribute("order");
 
-	if(sessione_student!=null)		
-	{	 if(sessione_student.getEmail().length()>0)
+	if(sessione_segreteria!=null)		
+	{	 if(sessione_segreteria.getEmail().length()>0)
 		 { 
-			request.setAttribute("trainings", TirocinioModel.myTraining("",sessione_student.getMatricola()));
+			request.setAttribute("questions_segreteria", tirocinioModel.doRetrieveAll(""));
 		
-			Collection<?> trainings = (Collection<?>) request.getAttribute("trainings");
+			Collection<?> trainings = (Collection<?>) request.getAttribute("questions_segreteria");
 		  %>  
 			<div class="container">
-			<h2>I Miei Tirocini (<%=sessione_student.getNome()%> <%=sessione_student.getCognome()%>)</h2>
+			<h2>Tutti i tirocini (Esterni/Interni/Precedenti)</h2>
 			<%
 			if(request.getAttribute("message_success_training")!=null)
 			{
@@ -51,7 +51,7 @@
 			<div class="col-lg-12">
                <div class="panel panel-default">
                    <div class="panel-heading">
-                            Tirocini di <%=sessione_student.getNome()%> <%=sessione_student.getCognome()%>
+                            Tirocini (Esterni/Interni) (<%=trainings.size()%>)
                    </div>
                      <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -63,6 +63,17 @@
 							%>
                             <div class="table-responsive">
                                 <table class="table table-striped">
+                                	<thead>
+                                		<tr>
+                                			<th>Studente</th>
+                                			<th></th>
+                                			<th></th>
+                                			<th></th>
+                                			<th></th>
+                                        	<th>Professore/Tutor Aziendale</th>
+                                        	<th></th>
+                                        </tr>
+                                	</thead>
                                     <thead>
                            <%
 							while (it_trainings.hasNext()) {
@@ -72,30 +83,25 @@
 								%>
                                         <tr>
                                             <th>Nome Cognome</th>
-                                            <th>Tipo Professore/Tutor Aziendale</th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Matricola</th>
                                             <th>Stato</th>
-                                            <th>Azione</th>
+                                            <th>Nome Cognome</th>
+                                            <th>Tipo</th>
                                         </tr>
                                 <% i=1;
                                 }%>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><a href="ShowProfile.jsp?id=<%=tirocinio.getTutor_username()%>"> <%=tirocinio.getNomeCognome()%> </a></td>
-                                            <td><%=tirocinio.getTipoTutorProfessore()%></td>
+                                            <td><%=tirocinio.getNomeCognomeStudent()%></td>
+                                            <td><%=tirocinio.getStudent_usename()%></td>
+                                            <td><%=tirocinio.getStudent_email()%></td>
+                                            <td><%=tirocinio.getMatricola_studente()%></td>
                                             <td><%=tirocinio.getStato()%></td>
-                                            <td><% if(tirocinio.getStato().equalsIgnoreCase("In Attesa")) 
-                                            	   {%> <a href="tirociniocontrol?action=delete_training_student&id=<%=tirocinio.getId()%>">Cancella Domanda</a> <%} 
-                                            
-                                            	   if(tirocinio.getStato().equalsIgnoreCase("Accettata")) 
-		                                     	   {%> <a href="tirociniocontrol?action=confirm_student_training_student&id=<%=tirocinio.getId()%>">Conferma Domanda</a> --  <a href="tirociniocontrol?action=reject_student_training_student&id=<%=tirocinio.getId()%>">Rifiuta Domanda</a><%}
-                                            	   
-		                                     	   if(tirocinio.getStato().equalsIgnoreCase("Confermata") || tirocinio.getStato().equalsIgnoreCase("Completato")) 
-		                                     	   {%> <a href="TrendTrainingStudent.jsp?id=<%=tirocinio.getId()%>">Andamento Tirocinio</a><%}
-		                                     	   
-		                                     	   if(tirocinio.getStato().equalsIgnoreCase("Completato")) 
-		                                     	   {%> -- <a href="/Tirocinio2.5/Users/Students/ModuloRiconoscimento_attivita_lavorativa.pdf">Modulo di Riconoscimento</a><%}%>
-                                            	   </td>
+                                            <td><a href="../ShowProfile.jsp?id=<%=tirocinio.getTutor_username()%>"> <%=tirocinio.getNomeCognome()%> </a></td>
+                                        	<td><%=tirocinio.getTipoTutorProfessore()%></td>
                                         </tr>
                              <%
 								}%>
@@ -108,7 +114,7 @@
 							else
 							{%>
 								Nessun Tirocinio trovato.
-								<a href="PersonalArea.jsp">Area Riservata</a>
+								<a href="../PersonalAreaSegretary.jsp">Area Riservata</a>
 							<%}%>
                         </div>
                         <!-- /.panel-body -->
@@ -117,13 +123,13 @@
              
                 <div class="panel panel-default">
                    <div class="panel-heading">
-                            Tirocini Precedenti di <%=sessione_student.getNome()%> <%=sessione_student.getCognome()%>
+                            Tirocini (Precedenti) (<%=trainings.size()%>)
                    </div>
                      <!-- /.panel-heading -->
                 		<div class="panel-body">
                         <%
-                        request.setAttribute("trainings", TirocinioModel.myTrainingOld("",sessione_student.getMatricola()));
-                        trainings = (Collection<?>) request.getAttribute("trainings");
+                        request.setAttribute("questions_segreteria", tirocinioModel.doRetrieveAllOld(""));
+                        trainings = (Collection<?>) request.getAttribute("questions_segreteria");
                         i = 0;
                         if (trainings != null && trainings.size() != 0) {
 							Iterator<?> it_trainings = trainings.iterator();
@@ -169,7 +175,7 @@
 							else
 							{%>
 								Nessun Tirocinio Precedente trovato.
-								<a href="PersonalArea.jsp">Area Riservata</a>
+								<a href="../PersonalAreaSegretary.jsp">Area Riservata</a>
 							<%}%>
                         </div>
                         <!-- /.panel-body -->
@@ -182,7 +188,7 @@
    }
    else
    {%>
-		<script>  window.location.href = "index.jsp"; </script> 
+		<script>  window.location.href = "../index.jsp"; </script> 
  <%}%>
 	 	
 </body>

@@ -60,7 +60,7 @@
 			  
 			  <fieldset>
 			  
-			  <legend>Tirocini</legend>
+			  <legend><a href="segreteria/AllTraining.jsp" style="color: black; text-decoration: none;">Tirocini</a></legend>
 			  &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
 			  
 			  <button onclick="QuestionsTraining()" style="width:180px; height:70px" class="btn btn-warning">Domande Tirocini</button> &ensp;&ensp;&ensp;&ensp;&ensp;
@@ -80,7 +80,7 @@
 			  </script>
 			  <script>
 					function CreateProfile() {
-						window.location.href = "#";
+						window.location.href = "segreteria/OldTraining.jsp";
 						}
 			  </script>
 			  <script>

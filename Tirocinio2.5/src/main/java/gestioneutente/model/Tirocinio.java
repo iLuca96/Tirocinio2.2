@@ -195,6 +195,69 @@ public class Tirocinio {
     this.nomecognomeStudent = nomeCognomeStudent;
   }
 
+  /**
+   * Metodo che restituisce un company.
+   * @return company tipo String, variabile contente il valore di una company
+  */
+  public String getCompany() {
+    return company;
+  }
+
+  /**
+   * Metodo che setta un company.
+   * @param company tipo String, variabile contente il valore di una company
+  */
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  /**
+   * Metodo che restituisce un oreSvolte.
+   * @return oreSvolte tipo String, variabile contente il valore di un oreSvolte
+  */
+  public String getOreSvolte() {
+    return oreSvolte;
+  }
+  
+  /**
+   * Metodo che setta un oreSvolte.
+   * @param oreSvolte tipo String, variabile contente il valore di un oreSvolte
+  */
+  public void setOreSvolte(String oreSvolte) {
+    this.oreSvolte = oreSvolte;
+  }
+
+  /**
+   * Metodo che restituisce un compitiSvolti.
+   * @return compitiSvolti tipo String, variabile contente il valore di un compitiSvolti
+  */
+  public String getCompitiSvolti() {
+    return compitiSvolti;
+  }
+
+  /**
+   * Metodo che setta un compitiSvolti.
+   * @param compitiSvolti tipo String, variabile contente il valore di un compitiSvolti
+  */
+  public void setCompitiSvolti(String compitiSvolti) {
+    this.compitiSvolti = compitiSvolti;
+  }
+
+  /**
+   * Metodo che restituisce un compitiSvolti.
+   * @return compitiSvolti tipo String, variabile contente il valore di un compitiSvolti
+  */
+  public String getDocumentLink() {
+    return documentLink;
+  }
+
+  /**
+   * Metodo che setta un documentLink.
+   * @param documentLink tipo String, variabile contente il valore di un documentLink
+  */
+  public void setDocumentLink(String documentLink) {
+    this.documentLink = documentLink;
+  }
 
   private int id;
   private String stato;
@@ -207,5 +270,9 @@ public class Tirocinio {
   private String nomecognomeStudent;
   private String studentusename;
   private String studentemail;
+  private String company;
+  private String oreSvolte;
+  private String compitiSvolti;
+  private String documentLink;
 
 }

@@ -56,6 +56,14 @@
     <url-pattern>/uploadfile</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>UploadDocument</servlet-name>
+    <servlet-class>gestionestudente.control.UploadDocument</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadDocument</servlet-name>
+    <url-pattern>/oldTraining</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>InternalExternal</servlet-name>
     <servlet-class>gestionestudente.control.InternalExternal</servlet-class>
   </servlet>
