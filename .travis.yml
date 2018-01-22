@@ -1,5 +1,8 @@
 language: java
-
+install: true
+script:
+  - mvn install
+  
 jdk:
   - oraclejdk8
 
@@ -13,6 +16,3 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
  
 notifications: never
-
-os:
- - windows10
