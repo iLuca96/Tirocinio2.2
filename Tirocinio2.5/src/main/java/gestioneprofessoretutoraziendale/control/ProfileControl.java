@@ -60,9 +60,9 @@ public class ProfileControl extends HttpServlet {
         String nome = null;
         String cognome = null;
         String company = null;
-        String    indirizzo = null;
-        String    telefono = null;
-        String    fax = null;
+        String indirizzo = null;
+        String telefono = null;
+        String fax = null;
         String email = null;
         String luogo = null;
         String sitoweb = null;
@@ -159,8 +159,33 @@ public class ProfileControl extends HttpServlet {
         }
 
         if (action.equalsIgnoreCase("createProfile") || action.equalsIgnoreCase("EditProfile")) {
-
-          if (validateEmail(email)) {
+          boolean control = true;
+          
+          if (!validateEmail(email)) {
+            request.setAttribute("email_not_valid_profile", ""
+                + "Email inserita non valida.");
+            control = false;
+          }
+          
+          if (!validateTelFax(fax)) {
+            request.setAttribute("fax_not_valid_profile", ""
+                + "Numero del fax inserito non valido.");
+            control = false;
+          }
+          
+          if (!validateTelFax(telefono)) {
+            request.setAttribute("telefono_not_valid_profile", ""
+                + "Numero di telefono inserito non valido.");
+            control = false;
+          }
+          
+          if (!validateLuogo(luogo)) {
+            request.setAttribute("luogo_not_valid_profile", ""
+                + "Luogo inserito non valido. = " + luogo);
+            control = false;
+          }
+          
+          if (control) {
             ProfessoreTutorAziendale bean = new ProfessoreTutorAziendale();
             bean.setNome(nome);
             bean.setCognome(cognome);
@@ -183,9 +208,9 @@ public class ProfileControl extends HttpServlet {
             bean.setChisono(chisono);
             bean.setImmagine_profilo(imageProfile);
             Tutormodel.doModifyProfile(bean);
-
             if (action.equalsIgnoreCase("EditProfile")) {
-              request.setAttribute("message_success_profile", "Profilo Modificato con successo.");
+              request.setAttribute("message_success_profile", ""
+                  + "Profilo Modificato con successo.");
               return_path = "/EditProfile.jsp";
             } else {
               request.setAttribute("message_success_profile", "Profilo Creato con successo.");
@@ -199,13 +224,11 @@ public class ProfileControl extends HttpServlet {
               request.getSession().setAttribute("tutor", Tutormodel
                   .doRetrieveByKey(sessioneTutor.getUsername()));
             }
-          } else {
-            request.setAttribute("email_not_valid_profile", "Email inserita non valida.");
-            if (action.equalsIgnoreCase("EditProfile")) {
-              return_path = "/EditProfile.jsp";
-            }
+          } 
+                
+          if (action.equalsIgnoreCase("EditProfile")) {
+            return_path = "/EditProfile.jsp";
           }
-
         }
       } catch (Exception ex) {
         request.setAttribute("message_danger_profile", "File upload failed due to : " + ex);
@@ -253,8 +276,9 @@ public class ProfileControl extends HttpServlet {
    */
   
   private static String creaDir(String nameFolder) {
-    //String Dir = "C:/Users/ciro9/eclipse-workspace/
-    //Tirocinio2.5/WebContent/Users/TeacherTutor/" + name_folder;
+
+    //String Dir = "C:/Users/Luca/Desktop/progetto IS/git/Tirocinio2_5/
+    //src/main/webapp/Users/TeacherTutor;
     String dir = "C:/apache-tomcat-8.5.11/webapps/Tirocinio2.5/Users/TeacherTutor/" + nameFolder;
 
     new File(dir).mkdir();
@@ -270,8 +294,46 @@ public class ProfileControl extends HttpServlet {
   *     parametro passato non è una email valida, true altrimenti.
  */
   public boolean validateEmail(String email) {
-    Pattern pattern = Pattern.compile("[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}");
+    Pattern pattern = Pattern.compile("[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}+$");
     Matcher matcher = pattern.matcher(email);
+
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  /**
+   * Il metodo confronta il luogo passato con una espressione regolare,
+   *  per verificare se la variabile passata è un luogo valido.
+   * @param luogo tipo Boolean, Variabile che viene cofrontata 
+   *     con le espressioni regolari per verificare se è un luogo valido
+   * @return true/false valore boolean che se è false allora il 
+   *     parametro passato non è un luogo valido, true altrimenti.
+  */
+  public boolean validateLuogo(String luogo) {
+    Pattern pattern = Pattern.compile("[a-zA-Z0-9' ()]+$");
+    Matcher matcher = pattern.matcher(luogo);
+
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  /**
+  * Il metodo confronta il numero di telefono e il fax passati con una espressione regolare,
+  *  per verificare se la variabile passata è valida.
+  * @param numero tipo String, Variabile che viene cofrontata 
+  *     con le espressioni regolari per verificare se è un numero valido
+  * @return true/false valore boolean che se è false allora il 
+  *     parametro passato non è un numero valido, true altrimenti.
+ */
+  public boolean validateTelFax(String numero) {
+    Pattern pattern = Pattern.compile("[0-9+]+$");
+    Matcher matcher = pattern.matcher(numero);
 
     if (matcher.matches()) {
       return true;

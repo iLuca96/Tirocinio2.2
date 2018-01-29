@@ -38,7 +38,45 @@
 		        <strong> <%=request.getAttribute("email_not_valid_profile")%></strong> 
 		      </div>
 	      	<%}
+		  	if(session.getAttribute("firstname_not_valid")!=null)
+			   {
+			%>
+				<div class="alert alert-danger">
+				    <strong>Spiacenti! </strong> <%=session.getAttribute("firstname_not_valid")%> 
+				</div>
+			
+			<%  
+			   }
+			if(session.getAttribute("lastname_not_valid")!=null)
+			   {
+			%>
+				<div class="alert alert-danger">
+				    <strong>Spiacenti! </strong> <%=session.getAttribute("lastname_not_valid")%> 
+				</div>
+			
+			<%  
+			   }  
+		  	if(request.getAttribute("luogo_not_valid_profile")!=null)
+		      {%>
+		      <div class="alert alert-danger">
+		        <strong> <%=request.getAttribute("luogo_not_valid_profile")%></strong> 
+		      </div>
+	      	<%}  
 	      	
+		  	  if(request.getAttribute("fax_not_valid_profile")!=null)
+		      {%>
+		      <div class="alert alert-danger">
+		        <strong> <%=request.getAttribute("fax_not_valid_profile")%></strong> 
+		      </div>
+	      	<%}
+		  	  
+		  	  if(request.getAttribute("telefono_not_valid_profile")!=null)
+		      {%>
+		      <div class="alert alert-danger">
+		        <strong> <%=request.getAttribute("telefono_not_valid_profile")%></strong> 
+		      </div>
+	      	<%}
+		  	  
 	      	  if(request.getAttribute("message_danger_profile")!=null)
 		      {%>
 		      <div class="alert alert-danger">
@@ -59,11 +97,11 @@
 			  
 			    <div class="form-group"> 
 			      <label for="first_name">Nome:</label>
-				  <input name="first_name" type="text" maxlength="25" required class="form-control" value="<%=sessione_teacher.getNome()%>">
+				  <input name="first_name" readonly type="text" maxlength="25" required class="form-control" value="<%=sessione_teacher.getNome()%>">
 			    </div>
 			    <div class="form-group">
 			      <label for="last_name">Cognome:</label>
-				  <input name="last_name" type="text" maxlength="25"  required class="form-control" value="<%=sessione_teacher.getCognome()%>">
+				  <input name="last_name" readonly type="text" maxlength="25"  required class="form-control" value="<%=sessione_teacher.getCognome()%>">
 			    </div>
 			    <div class="form-group">
 			      <label for="type">Tipo (Tutor Aziendale/Professore): </label>
@@ -130,7 +168,29 @@
 		        <strong> <%=request.getAttribute("email_not_valid_profile")%></strong> 
 		      </div>
 	      	<%}
-	      	
+		  	  
+		  	if(request.getAttribute("luogo_not_valid_profile")!=null)
+		      {%>
+		      <div class="alert alert-danger">
+		        <strong> <%=request.getAttribute("luogo_not_valid_profile")%></strong> 
+		      </div>
+	      	<%} 
+      	
+	  	  	if(request.getAttribute("fax_not_valid_profile")!=null)
+	      	{%>
+	      		<div class="alert alert-danger">
+	        		<strong> <%=request.getAttribute("fax_not_valid_profile")%></strong> 
+	      		</div>
+    		<%}
+	  	  
+	  	  	if(request.getAttribute("telefono_not_valid_profile")!=null)
+	      	{%>
+	      		<div class="alert alert-danger">
+	        		<strong> <%=request.getAttribute("telefono_not_valid_profile")%></strong> 
+	     		</div>
+		  	  
+	      	<%}
+	  	  	
 	      	  if(request.getAttribute("message_danger_profile")!=null)
 		      {%>
 		      <div class="alert alert-danger">

@@ -6,6 +6,8 @@ import gestioneutente.model.TirocinioModel;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 
@@ -32,6 +34,8 @@ public class UploadDocument extends HttpServlet {
 
     model = new TirocinioModel();
   }
+ 
+  static String return_path = "/PersonalArea.jsp";
   
   public UploadDocument() {
      super();
@@ -107,18 +111,37 @@ public class UploadDocument extends HttpServlet {
         
         if (action.equalsIgnoreCase("insert_old_training")) {
 
-          Tirocinio bean = new Tirocinio();
-          bean.setDocumentLink(filePdf);
-          bean.setMatricola_studente(sessioneStudent.getMatricola());
-          bean.setCompany(company);
-          bean.setNomeCognome(firstLastName);
-          bean.setOreSvolte(job);
-          bean.setCompitiSvolti(mansioni);
-          bean.setStato("In Attesa");
-          bean.setSegreteria_username("segreteria");
-          model.doSaveOld(bean);
+          boolean control = true;
+          
+          if (!validateCompany(company)) {
+            request.setAttribute("company_not_valid_upload", ""
+                  + "Il campo company non è valido, deve avere solo numeri o caratteri o (&).");
+            control = false;
+          }
+          
+          if (!validateOreSvolte(job)) {
+            request.setAttribute("job_not_valid_upload", ""
+                    + "Il campo job non è valido, deve avere solo numeri.");
+            control = false;
+          }
+          
+          if (control) {
+            Tirocinio bean = new Tirocinio();
+            bean.setDocumentLink(filePdf);
+            bean.setMatricola_studente(sessioneStudent.getMatricola());
+            bean.setCompany(company);
+            bean.setNomeCognome(firstLastName);
+            bean.setOreSvolte(job);
+            bean.setCompitiSvolti(mansioni);
+            bean.setStato("In Attesa");
+            bean.setSegreteria_username("segreteria");
+            model.doSaveOld(bean);
 
-          request.setAttribute("message_success", "Tirocinio Precedente inserito con successo.");
+            request.setAttribute("message_success", "Tirocinio Precedente inserito con successo.");
+          } else {
+            return_path = "/OldTraining.jsp";
+          }
+          
         }
       } catch (Exception ex) {
         request.setAttribute("message_danger", "File upload failed due to : " + ex);
@@ -128,7 +151,7 @@ public class UploadDocument extends HttpServlet {
             "Sorry this servlet only handles file upload request.");
     }
 
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/PersonalArea.jsp");
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(return_path);
     dispatcher.forward(request, response);
   }
   
@@ -164,9 +187,47 @@ public class UploadDocument extends HttpServlet {
   private static String creaDir(String nameFolder) {
     //String Dir = "C:/Users/ciro9/eclipse-workspace/Tirocinio2.5/WebContent/Users/Students/" 
     //  + name_folder;
-    String dir = "C:/apache-tomcat-8.5.11/webapps/Tirocinio2.5/Users/Students/" + nameFolder;
+    String dir = "C:/apache-tomcat-9.0.0.M17/webapps/Tirocinio2.5/Users/Students/" + nameFolder;
 
     new File(dir).mkdir();
     return dir;
+  }
+  
+  /**
+   * Il metodo confronta l'azienda passata con una espressione 
+   * regolare, per verificare se la variabile passata è un formato giusto.
+   * @param company tipo String, Variabile che viene cofrontata 
+   *     con le espressioni regolari per verificare se è un formato giusto
+   * @return true/false valore boolean che se è false allora 
+   *     il parametro passato non è un formato giusto., true altrimenti.
+  */
+  public boolean validateCompany(String company) {
+    Pattern pattern = Pattern.compile("[a-zA-Z0-9&]+$");
+    Matcher matcher = pattern.matcher(company);
+
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  /**
+   * Il metodo confronta le ore svolte con una espressione 
+   * regolare, per verificare se la variabile passata è un formato giusto.
+   * @param oresvolte tipo String, Variabile che viene cofrontata 
+   *     con le espressioni regolari per verificare se  è un formato giusto
+   * @return true/false valore boolean che se è false allora 
+   *     il parametro passato non è  è un formato giusto, true altrimenti.
+  */
+  public boolean validateOreSvolte(String oresvolte) {
+    Pattern pattern = Pattern.compile("[0-9]+$");
+    Matcher matcher = pattern.matcher(oresvolte);
+
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

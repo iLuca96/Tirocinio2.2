@@ -71,6 +71,7 @@ public class EditDataControl extends HttpServlet {
           lastName = upper(lastName,n);
 
           String matricola = request.getParameter("matricola");
+          
           String username = request.getParameter("username");
 
           String psw = request.getParameter("psw");
@@ -90,8 +91,34 @@ public class EditDataControl extends HttpServlet {
           int controlTutor = 0;
           
           String email = request.getParameter("email");
-
-          if (validateEmail(email)) {
+          
+          boolean control = true;
+          
+          if (!validateEmail(email)) {
+            session.setAttribute("email_not_valid", "Email "
+                  + "inserita \"" + email + "\" NON è valida!");
+            control = false;
+          }
+            
+          if (!validateUsername(username)) {
+            session.setAttribute("username_not_valid", "Username "
+                  + "inserita \"" + username + "\" NON è valida!");
+            control = false;
+          }
+          
+          if (!validateNomeCognome(firstName)) {
+            session.setAttribute("firstname_not_valid", "Nome "
+                    + "inserito \"" + firstName + "\" NON è valido!");
+            control = false;
+          }
+          
+          if (!validateNomeCognome(lastName)) {
+            session.setAttribute("lastname_not_valid", "Cognome "
+                    + "inserito \"" + lastName + "\" NON è valido!");
+            control = false;
+          }
+          
+          if (control) {
             if (isStudent(email)) {
               if (sessioneStudent != null) {
                 if (sessioneStudent.getMatricola().length() > 0) {
@@ -105,7 +132,7 @@ public class EditDataControl extends HttpServlet {
                   }
                 } else {
                   session.setAttribute("email_not_ok", "Se vuoi modificare l'email, "
-                      + "quest'ultima deve essere di tipo Tutor Aziendale.");
+                        + "quest'ultima deve essere di tipo Tutor Aziendale.");
                 }
               }
             } else if (isTeacher(email)) {
@@ -185,7 +212,7 @@ public class EditDataControl extends HttpServlet {
                     Tutormodel.doModify(bean);
 
                     request.getSession().setAttribute("teacher"
-                        + "", Tutormodel.doRetrieveByKey(sessioneTeacher.getUsername()));
+                          + "", Tutormodel.doRetrieveByKey(sessioneTeacher.getUsername()));
 
                     session.setAttribute("editdata_completed", email);
                     session.setAttribute("editdata_completed_as_student_tutor_teacher"
@@ -193,7 +220,7 @@ public class EditDataControl extends HttpServlet {
                   } else {
                     session.setAttribute("not_equals", "La username inserita "
                         + "non risulta essere uguale "
-                        + "a \"" + sessioneTeacher.getUsername() + "\"");
+                          + "a \"" + sessioneTeacher.getUsername() + "\"");
                   }
                 }
               } else if (controlTutor == 1) {
@@ -212,11 +239,11 @@ public class EditDataControl extends HttpServlet {
                     Tutormodel.doModify(bean);
 
                     request.getSession().setAttribute("tutor"
-                        + "", Tutormodel.doRetrieveByKey(sessioneTutor.getUsername()));
+                          + "", Tutormodel.doRetrieveByKey(sessioneTutor.getUsername()));
 
                     session.setAttribute("editdata_completed", email);
                     session.setAttribute("editdata_completed_as_student_tutor_teacher"
-                        + "", "un Tutor Aziendale");
+                          + "", "un Tutor Aziendale");
                   } else {
                     session.setAttribute("not_equals", "La username inserita "
                         + "non risulta essere uguale a \"" + sessioneTutor.getUsername() + "\"");
@@ -224,9 +251,6 @@ public class EditDataControl extends HttpServlet {
                 }
               }
             }
-          } else {
-            session.setAttribute("email_not_valid", "Email "
-                + "inserita \"" + email + "\" NON è valida!");
           }
         }
       }
@@ -270,7 +294,45 @@ public class EditDataControl extends HttpServlet {
       return false;
     }
   }
+  
+  /**
+   * Il metodo confronta la username passata con una espressione 
+   * regolare, per verificare se la variabile passata è una username valida.
+   * @param username tipo String, Variabile che viene cofrontata 
+   *     con le espressioni regolari per verificare se è una username valida
+   * @return true/false valore boolean che se è false allora 
+   *     il parametro passato non è una username valida, true altrimenti.
+  */
+  public boolean validateUsername(String username) {
+    Pattern pattern = Pattern.compile("[a-zA-Z0-9]+$");
+    Matcher matcher = pattern.matcher(username);
 
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Il metodo confronta il nome/cognome passato con una espressione 
+   * regolare, per verificare se la variabile passata è un nome/congnome valido.
+   * @param nome tipo String, Variabile che viene cofrontata 
+   *     con le espressioni regolari per verificare se è una nome/congnome valido
+   * @return true/false valore boolean che se è false allora 
+   *     il parametro passato non è nome/congnome valido, true altrimenti.
+  */
+  public boolean validateNomeCognome(String nome) {
+    Pattern pattern = Pattern.compile("[a-zA-Z ']+$");
+    Matcher matcher = pattern.matcher(nome);
+
+    if (matcher.matches()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   /**
   * Il metodo confronta l'email passata con una espressione regolare, 
   * per verificare se la variabile passata è una email valida per studente.

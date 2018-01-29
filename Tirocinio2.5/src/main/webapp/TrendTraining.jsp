@@ -65,6 +65,23 @@
 				</div>
 			  <%
 			}
+			if(request.getAttribute("oraInizio_not_valid")!=null)
+			{
+				%> 
+				<div class="alert alert-danger">
+			      <strong> <%=request.getAttribute("oraInizio_not_valid") %> </strong>
+				</div>
+			  <%
+			}
+			
+			if(request.getAttribute("oraFine_not_valid")!=null)
+			{
+				%> 
+				<div class="alert alert-danger">
+			      <strong> <%=request.getAttribute("oraFine_not_valid") %> </strong>
+				</div>
+			  <%
+			}
 			%>
 			<div class="col-lg-12">
                <div class="panel panel-default">

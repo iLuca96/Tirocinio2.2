@@ -107,7 +107,6 @@ public class ProfessoreTutorAziendaleModel {
       preparedStatement.setString(5, professoreTutor.getUsername());
 
       result = preparedStatement.executeUpdate();
-
       connection.commit();
     } catch (SQLException e) {
 

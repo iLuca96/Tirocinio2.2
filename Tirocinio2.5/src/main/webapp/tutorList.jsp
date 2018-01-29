@@ -7,9 +7,7 @@ ProfessoreTutorAziendaleModel professoreModel;
 
 professoreModel = new ProfessoreTutorAziendaleModel();
 
-request.setAttribute("tutor_segreteria", professoreModel.doRetrieveAllTutor(""));
-
-Collection<?> teachers = (Collection<?>) request.getAttribute("tutor_segreteria");
+Collection<?> teachers = professoreModel.doRetrieveAllTutor("");
 
 %>    
 <html>
@@ -79,7 +77,7 @@ Collection<?> teachers = (Collection<?>) request.getAttribute("tutor_segreteria"
 	    <ul class="list-group">
 	    <%
 	  	int i = 0;
-	  	if (teachers != null && teachers.size() != 0) {
+	  	if (teachers.size() > 0) {
 				Iterator<?> it_teachers = teachers.iterator(); %>
 	    <%                        
 			 while (it_teachers.hasNext()) {
@@ -96,7 +94,7 @@ Collection<?> teachers = (Collection<?>) request.getAttribute("tutor_segreteria"
 					            <div class="well well-sm">
 					                <div class="row">
 					                    <div class="col-xs-3 col-md-3 text-center">
-					                        <img src="<%=teacher.getImmagine_profilo()%>" alt="immagine del profilo" class="img-rounded img-responsive" />
+					                        <img src="<%=teacher.getImmagine_profilo()%>" style="width:100%;width:180px;height:180px;" alt="immagine del profilo" class="img-rounded img-responsive" />
 					                    </div>
 					                    <div class="col-xs-9 col-md-9 section-box">
 					                        <h3>
@@ -130,11 +128,6 @@ Collection<?> teachers = (Collection<?>) request.getAttribute("tutor_segreteria"
 		{
 			i=1;
 		%>
-			<li class="list-group-item"> <strong> <h3> Nessun Profilo Tutor Aziendale trovato. </h3></strong> </li>
-		<%}
-			
-		if(i==0)
-		{%>
 			<li class="list-group-item"> <strong> <h3> Nessun Profilo Tutor Aziendale trovato. </h3></strong> </li>
 		<%}%>
 	 </ul>
